@@ -1,0 +1,121 @@
+textchimp  ttys003                   Mon Jul  6 15:08 - 15:08  (00:00)
+textchimp  ttys002                   Mon Jul  6 14:37   still logged in
+textchimp  ttys008                   Fri Jul  3 20:11   still logged in
+textchimp  ttys007                   Mon Jun 29 12:09   still logged in
+textchimp  ttys006                   Mon Jun 29 11:36   still logged in
+textchimp  ttys005                   Mon Jun 29 11:36   still logged in
+textchimp  ttys004                   Mon Jun 29 11:36   still logged in
+textchimp  ttys003                   Mon Jun 29 11:36 - 11:36  (00:00)
+textchimp  ttys002                   Mon Jun 29 11:36 - 11:36  (00:00)
+textchimp  ttys001                   Mon Jun 29 11:36   still logged in
+textchimp  ttys000                   Mon Jun 29 11:36   still logged in
+textchimp  ttys016                   Sat Jun 27 19:17 - 19:17  (00:00)
+textchimp  ttys015                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys014                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys013                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys012                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys011                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys010                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys009                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys008                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys006                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys007                   Sat Jun 27 18:20 - 18:20  (00:00)
+textchimp  ttys005                   Wed Jun 24 15:25 - 15:25  (00:00)
+textchimp  ttys004                   Wed Jun 24 15:25 - 15:25  (00:00)
+textchimp  ttys003                   Wed Jun 24 15:25 - 15:25  (00:00)
+textchimp  ttys002                   Wed Jun 24 15:25 - 15:25  (00:00)
+textchimp  ttys001                   Wed Jun 24 15:25 - 15:25  (00:00)
+textchimp  ttys000                   Wed Jun 24 15:25 - 15:25  (00:00)
+textchimp  console                   Wed Jun 24 15:25   still logged in
+reboot    ~                         Wed Jun 24 15:24 
+shutdown  ~                         Wed Jun 24 14:45 
+reboot    ~                         Wed Jun 24 14:42 
+shutdown  ~                         Wed Jun 24 14:18 
+textchimp  ttys013                   Tue Jun 23 17:56 - 17:56  (00:00)
+textchimp  ttys012                   Tue Jun 23 17:56 - 17:56  (00:00)
+textchimp  ttys011                   Tue Jun 23 17:56 - 17:56  (00:00)
+textchimp  ttys009                   Tue Jun 23 17:56 - 17:56  (00:00)
+textchimp  ttys008                   Tue Jun 23 17:56 - 17:56  (00:00)
+textchimp  ttys010                   Tue Jun 23 17:55 - 17:55  (00:00)
+textchimp  ttys009                   Tue Jun 23 17:55 - 17:55  (00:00)
+textchimp  ttys008                   Tue Jun 23 17:55 - 17:55  (00:00)
+textchimp  ttys007                   Tue Jun 23 17:55 - 17:55  (00:00)
+textchimp  ttys004                   Tue Jun 23 17:55 - 17:55  (00:00)
+textchimp  ttys007                   Mon Jun 22 16:17 - 16:17  (00:00)
+textchimp  ttys006                   Mon Jun 22 16:03 - 16:03  (00:00)
+textchimp  ttys005                   Mon Jun 22 16:03 - 16:03  (00:00)
+textchimp  ttys004                   Mon Jun 22 16:03 - 16:03  (00:00)
+textchimp  ttys003                   Mon Jun 22 16:03 - 16:03  (00:00)
+textchimp  ttys001                   Mon Jun 22 16:03 - 16:03  (00:00)
+textchimp  ttys002                   Mon Jun 22 14:59 - 14:59  (00:00)
+textchimp  ttys001                   Mon Jun 22 14:59 - 14:59  (00:00)
+textchimp  ttys000                   Mon Jun 22 14:59 - 14:59  (00:00)
+textchimp  console                   Mon Jun 22 14:59 - 14:18 (1+23:19)
+reboot    ~                         Mon Jun 22 14:58 
+shutdown  ~                         Mon Jun 22 14:33 
+textchimp  ttys002                   Sun Jun 21 19:43 - 19:43  (00:00)
+textchimp  ttys002                   Sun Jun 21 18:03 - 18:03  (00:00)
+textchimp  ttys002                   Sun Jun 21 18:03 - 18:03  (00:00)
+textchimp  ttys001                   Wed Jun 17 19:34 - 19:34  (00:00)
+textchimp  ttys000                   Wed Jun 17 19:34 - 19:34  (00:00)
+textchimp  console                   Wed Jun 17 19:33 - 14:33 (4+18:59)
+reboot    ~                         Wed Jun 17 19:33 
+shutdown  ~                         Wed Jun 17 17:48 
+textchimp  ttys005                   Tue Jun 16 18:16 - 18:16  (00:00)
+textchimp  ttys004                   Tue Jun 16 17:58 - 17:58  (00:00)
+textchimp  ttys004                   Fri Jun 12 17:10 - 17:10  (00:00)
+textchimp  ttys004                   Fri Jun 12 16:15 - 16:15  (00:00)
+textchimp  ttys004                   Fri Jun 12 16:15 - 16:15  (00:00)
+textchimp  ttys003                   Tue Jun  9 20:26 - 20:26  (00:00)
+textchimp  ttys002                   Tue Jun  9 14:17 - 14:17  (00:00)
+textchimp  ttys001                   Tue Jun  9 14:17 - 14:17  (00:00)
+textchimp  ttys000                   Tue Jun  9 14:17 - 14:17  (00:00)
+textchimp  console                   Tue Jun  9 14:17 - 17:48 (8+03:31)
+reboot    ~                         Tue Jun  9 14:17 
+shutdown  ~                         Tue Jun  9 14:16 
+textchimp  ttys002                   Sun May 31 19:03 - 19:03  (00:00)
+textchimp  ttys001                   Sun May 31 19:03 - 19:03  (00:00)
+textchimp  ttys000                   Sun May 31 19:02 - 19:02  (00:00)
+textchimp  console                   Sun May 31 19:02 - 14:16 (8+19:14)
+reboot    ~                         Sun May 31 19:02 
+shutdown  ~                         Sun May 31 19:00 
+textchimp  ttys002                   Sat May 30 11:46 - 11:46  (00:00)
+textchimp  ttys001                   Sat May 30 11:46 - 11:46  (00:00)
+textchimp  ttys000                   Sat May 30 11:46 - 11:46  (00:00)
+textchimp  console                   Sat May 30 11:46 - 19:00 (1+07:14)
+reboot    ~                         Sat May 30 11:45 
+shutdown  ~                         Sat May 30 11:45 
+textchimp  ttys002                   Sat May 30 11:30 - 11:30  (00:00)
+textchimp  ttys001                   Sat May 30 11:30 - 11:30  (00:00)
+textchimp  ttys000                   Sat May 30 11:30 - 11:30  (00:00)
+textchimp  console                   Sat May 30 11:30 - 11:45  (00:15)
+reboot    ~                         Sat May 30 11:29 
+shutdown  ~                         Sat May 30 11:28 
+textchimp  ttys003                   Fri May 29 16:24 - 16:24  (00:00)
+textchimp  ttys002                   Wed May 27 15:23 - 15:23  (00:00)
+textchimp  ttys001                   Wed May 27 10:25 - 10:25  (00:00)
+textchimp  ttys000                   Wed May 27 10:25 - 10:25  (00:00)
+textchimp  console                   Wed May 27 10:24 - 11:28 (3+01:03)
+reboot    ~                         Wed May 27 10:24 
+shutdown  ~                         Wed May 27 10:24 
+textchimp  ttys001                   Wed May 27 10:15 - 10:15  (00:00)
+textchimp  ttys000                   Wed May 27 10:15 - 10:15  (00:00)
+textchimp  console                   Wed May 27 10:15 - 10:24  (00:08)
+reboot    ~                         Wed May 27 10:15 
+shutdown  ~                         Wed May 27 10:15 
+textchimp  ttys001                   Tue May 26 16:54 - 16:54  (00:00)
+textchimp  ttys000                   Tue May 26 16:54 - 16:54  (00:00)
+textchimp  console                   Tue May 26 16:54 - 10:15  (17:20)
+reboot    ~                         Tue May 26 16:52 
+shutdown  ~                         Tue May 26 16:52 
+textchimp  ttys001                   Tue May 26 16:26 - 16:26  (00:00)
+textchimp  ttys000                   Tue May 26 16:26 - 16:26  (00:00)
+textchimp  console                   Tue May 26 16:26 - 16:52  (00:25)
+reboot    ~                         Tue May 26 16:26 
+shutdown  ~                         Tue May 26 16:25 
+textchimp  ttys001                   Tue May 26 16:14 - 16:14  (00:00)
+textchimp  ttys000                   Tue May 26 15:35 - 15:35  (00:00)
+textchimp  console                   Tue May 26 14:15 - 16:25  (02:10)
+reboot    ~                         Tue May 26 14:14 
+
+wtmp begins Tue May 26 14:14 

@@ -178,6 +178,7 @@ const nouns = [
 // generateRandomInt( max )  : return a random integer in the range 0..max-1 (non-inclusive)
 
 const generateRandomInt = function( max ){
+  // console.log(`in generateRandomInt(${max})`);
   const randomNum = Math.random() * max;
   const randomInt = Math.floor( randomNum );
   return randomInt;
@@ -191,6 +192,7 @@ const generateRandomInt = function( max ){
 // getRandomElementFromArray( array ) : return a random element from the specified array
 
 const getRandomElementFromArray = function( array ){
+  // console.log('in getRandomElementFromArray(array)');
   const randomIndex = generateRandomInt( array.length );
   const randomItem = array[ randomIndex ];
   return randomItem;
@@ -201,6 +203,12 @@ const getRandomElementFromArray = function( array ){
 // generateInsult() : generate and print a random insult
 
 const generateInsult = function() {
+  // console.log('in generateInsult()');
+
+  // if( count === 5 ){
+  //   debugger; // conditional breakpoint
+  // }
+
   const firstAdjective = getRandomElementFromArray( firstAdjectives );
   const secondAdjective = getRandomElementFromArray( secondAdjectives );
   const noun = getRandomElementFromArray( nouns );

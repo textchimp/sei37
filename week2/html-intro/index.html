@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>HTML Intro</title>
+  <!-- <script src="js/main.js" /> -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <h1>Welcome to My Special Site With All My Thoughts and Feelings On It</h1>
+
+  <h3 class="special">Sorry if this is not as exciting as Javascript...</h3>
+
+  <p>Here                        are all my interesting thoughts and opinions.
+
+  <!-- whitespace is ignored by HTML! Only a single space is shown; anything more gets squashed down to a single space -->
+
+  Here are all my <strong class="special">interesting</strong> thoughts and <em>opinions</em>.</p>
+
+  <p id="narrow">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum eaque dolores, quidem esse, deserunt distinctio voluptatem, dicta tempora cupiditate mollitia, eum sapiente laudantium aliquid aperiam. Dolores id iusto sint provident.
+  <br/> <!-- no closing tag! "self-closing" -->
+  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad quasi quis dolores eaque modi ducimus, asperiores nisi, repudiandae neque reprehenderit aperiam? Debitis dolores fugiat expedita tenetur fugit. Enim, natus, blanditiis. </p>
+
+  <div>
+    <a href="gallery.html">Visit my gallery</a>
+  </div>
+
+  <p>Learning to code? Why not <a href="http://ga.co/">study at GA?</a></p>
+
+
+  <p>More thoughts and opinions.</p>
+
+  <p>
+    <em>My <span>Favourite</span> Dogs:</em>
+  </p>
+
+  <ul class="special">
+    <li id="bestDog">Ruby</li>
+    <li>Jess</li>
+    <li>Nookie</li>
+  </ul>
+
+  <!-- span = inline element -->
+  <span>Hello.</span>
+  <span>Hello again.</span>
+
+  <!-- div = block element: takes its own row -->
+  <div>This will get its own line.</div>
+  <div>So will this, <div>and this.</div>  </div>
+
+
+  <h4>Forbidden!: </h4>
+  <b>Bold tag - use "strong" instead (deprecated)</b><br>
+  <i>Italics - use "em" instead</i><br>
+  <blink>BLINK - SO ANNOYING! CSS animations?</blink><br>
+  <font size="12px">Font - not allowed, use CSS with a span or div</font><br>
+  <span style="color: red; font-weight:bold">Inline styles - use a separate CSS file.</span><br>
+  <center>This was once used to center text. Use CSS "text-align: center" or "margin: 0 auto".</center><br>
+
+  <marquee direction="down">
+    WHY IS THIS NOT ALLOWED? Deprecated but we can bring it back with CSS animations or JS.
+  </marquee>
+
+
+  <!-- end of banned list -->
+
+  <hr><!-- a kind of separator -->
+
+  <blockquote>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem quisquam consectetur, sunt tenetur sapiente, soluta voluptatibus earum modi nemo dolorum numquam deleniti voluptatem temporibus delectus nesciunt necessitatibus unde beatae incidunt.
+    <br>
+    Brandname &copy; <!-- HTML entity -->
+    <br>
+    Literal less-than sign &lt; , &gt;
+    <br>
+    Literal ampersand: &amp;
+    <br>
+    This & might work.
+    <br>
+  </blockquote>
+
+  <pre>
+    This line.
+    Will be separate.
+    From this line.
+    And spaces...                 are also preserved.
+  </pre>
+
+  <p>
+    Here is some code: <code>const x = 5;</code>
+  </p>
+
+  <table>
+    <thead>
+      <td>Brother</td>
+      <td>Instrument</td>
+    </thead>
+
+    <tr>
+      <td>Groucho</td>
+      <td>Guitar</td>
+    </tr>
+
+    <tr>
+      <td>Harpo</td>
+      <td>Harp</td>
+    </tr>
+
+    <tr>
+      <td>Chico</td>
+      <td>Flute</td>
+    </tr>
+
+  </table>
+
+
+  <h2>Here comes a form!</h2>
+
+  <form><!-- the container for grouping together all the form components -->
+
+    <input type="text" name="textExample" placeholder="John Doe" value="">
+    <br>
+    <input type="password" name="seekrit">
+    <br>
+    <textarea name="emailBody" cols="30" rows="4">
+Pre-populated data goes here.
+
+Another paragraph.
+    </textarea>
+
+    <br>
+
+    <select name="dog"><!-- dropdown list with items -->
+      <option value="" selected disabled>Please select one of the following:</option>
+      <option value="45">Toller</option>
+      <option value="100">Husky</option>
+      <option value="50">Pug</option>
+    </select>
+
+    <br>
+
+    <fieldset>
+
+      <legend>Please select the preferred dog traits:</legend>
+
+      <label>
+        <input type="checkbox" name="traits" value="boundy">
+        Lots of bounding around
+      </label>
+
+      <br>
+
+      <input type="checkbox" name="traits" value="drool" id="drooling" checked>
+      <label for="drooling">Prodigous slobbering</label>
+
+    </fieldset>
+
+    <fieldset>
+      <legend>Select only one brother:</legend>
+
+      <input type="radio" name="bro" id="groucho" value="Groucho" checked>
+      <label for="groucho">Groucho</label>
+      <br>
+
+      <input type="radio" name="bro" value="Harpo" id="harpo">
+      <label for="harpo">Harpo</label> <br>
+
+    </fieldset>
+
+    <input type="submit" value="Send form">
+
+
+  </form>
+
+  <button>This button does nothing without JS.</button>
+  <br>
+
+  <img src="http://www.fillmurray.com/500/300" alt="Bill Murray" />
+
+
+
+
+</body>
+
+
+</html>

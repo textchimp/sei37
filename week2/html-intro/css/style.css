@@ -1,0 +1,69 @@
+
+
+body {
+  background-color: hotpink;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  border: 1px solid white;
+}
+
+.special {
+  background-color: darkgoldenrod;
+  font-size: 16pt;
+}
+
+/*
+A tag must have ALL these classes defined on it for this rule to select it: e.g: <span class="special something big">
+*/
+.special.big.something {
+
+}
+
+/*
+Ancestry:
+This selector matches any tag with a class of "big" which has an ancestor (anywhere above it as a parent tag) with the class of "special"
+<p class="special">
+  <div class="highlight">
+    <p>Hello</p>
+    <p class="big">THIS IS THE MATCH</p>
+  </div>
+</p>
+ */
+ .special .big {
+
+ }
+
+/*
+If a tag has ANY of the following classes attached, it
+will match this selector, e.g. <span class="big">
+*/
+.special, .big, .something {
+
+}
+
+p a {
+  text-decoration: none; /* turn off underlining */
+}
+
+#bestDog {
+  background-color: red;
+}
+
+#narrow {
+  width: 20%; /* Use % to calculate a dynamic width; width is relative to the parent container */
+}
+
+img {
+  transform: scale(1.0) rotate(0deg);
+  transition: 2s; /* animation! */
+}
+
+img:hover {
+  transform: scale(3.0) rotate(1080deg);
+}
+
+p {
+  border: 1px solid red;
+}

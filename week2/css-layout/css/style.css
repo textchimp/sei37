@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch&family=Roboto&display=swap');
+
+body {
+  margin: 0px; /* get rid of the default margin! */
+  font-family: 'Grenze Gotisch', cursive;
+}
+
+.inlineExample {
+  display: inline;
+  border: 1px solid red;
+  width: 100px; /* HAS NO EFFECT */
+}
+
+.blockExample {
+  display: block; /* not necessary for DIVs */
+  border: 1px solid green;
+  width: 200px; /* THIS WORKS */
+}
+
+.inlineBlockExample {
+  display: inline-block;
+  border: 1px solid purple;
+  width: 300px;
+}
+
+.box {
+  display: inline-block;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+  vertical-align: top;
+  border: 1px solid black;
+}
+
+.staticExample {
+  position: static;
+  left: 200px; /* HAS NO EFFECT */
+}
+
+.relativeExample {
+  position: relative;
+  left: 100px;
+  top: 50px;  /* these will work */
+}
+
+.absoluteExample {
+  position: absolute;
+  top: 100px;
+  left: 100px;
+}
+
+.parentOfAbsolute {
+  position: relative;
+  /*
+  BECAUSE this parent of our absoluteExample box has
+  a specific position set, the absoluteExample box will
+  have its "absolute" offets calculated relative to this parent
+   */
+}
+
+.fixedExample {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+}
+
+nav div {
+  box-sizing: border-box;
+  /* border: 1px solid blue; */
+  display: inline-block;
+  height: 50px;
+  margin: 0px;
+  padding: 0px;
+  background-color: brown;
+  color: white;
+  padding: 0 20px;
+  line-height: 50px;
+  font-family: 'Roboto', sans-serif;
+}
+
+#leftNav {
+  width: 70%;
+}
+
+#rightNav {
+  width: 30%;
+  text-align: right;
+  padding-right: 20px;
+}

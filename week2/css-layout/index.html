@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>CSS Positioning &amp; Layout</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- SEMANTIC tags are containers which tell us
+    something about WHAT the contents are - this is for
+    accessibility reasons, so screen readers can
+    differentiate between the parts of a page for
+    e.g. visually impaired users -->
+  <nav>
+    <div id="leftNav">
+      LEFT
+    </div><div id="rightNav">
+      Login
+    </div>
+  </nav>
+
+  <h1>CSS Layout</h1>
+
+  <p>Let's do this!</p>
+
+  <div class="inlineExample">
+    This element is <code>display: inline;</code>
+  </div>
+
+  <div class="inlineExample">
+    This element is ALSO <code>display: inline;</code>
+  </div>
+
+
+  <div class="blockExample">
+    This element is <code>display: block;</code>
+  </div>
+
+  <div class="blockExample">
+    This element is ALSO <code>display: block;</code>
+  </div>
+
+  <div class="inlineBlockExample">
+    This element is <code>display: inline-block;</code>
+  </div>
+  <div class="inlineBlockExample">
+    This element is ALSO <code>display: inline-block;</code>
+  </div>
+
+  <br>
+  <br>
+  <br> <!-- don't actually use br to make vertical space -->
+
+  <div class="box staticExample">
+    <strong>Static (default)</strong><br>
+    The position is whatever the browser gives it, when it calculates the page flow; you can't change it later with top/left CSS offsets.
+  </div>
+
+  <div class="box relativeExample">
+    <strong>Relative</strong>
+    Offsets <em>do</em> work, and are calculated relative to the default (static) position
+  </div>
+
+  <div class="box parentOfAbsolute">
+
+    <div class="box absoluteExample">
+      <strong>Absolute</strong>
+      Offsets work, and are calculated relative to the nearest containing element (ancestor) which has a specific position value set.... otherwise relative to the <code><body></code> (whole document).
+    </div>
+
+  </div><!-- class="box parentOfAbsolute" -->
+
+  <div class="box absoluteExample">
+    <strong>Absolute</strong>
+    This has no positioned parent, so its offsets are calculated relative to the entire document/body.
+  </div>
+
+  <div class="box fixedExample">
+    <strong>Fixed</strong>
+    Offsets are calculated relative to the <em>window (viewport)</em> - i.e. does NOT move when you scroll the document.
+  </div>
+
+
+</body>
+
+</html>

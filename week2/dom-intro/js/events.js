@@ -29,6 +29,7 @@ runNicely( function(){
   console.log('Hello from this on-the-fly function!');
 } );
 
+
 // Select an element:
 const h1 = document.querySelector('h1');
 
@@ -40,4 +41,8 @@ const h1 = document.querySelector('h1');
 // specific event.
 h1.addEventListener( 'click', function( event ){
   console.log('<h1> click event handler function running! Event data:', event);
+
 });
+
+console.log('hi');
+console.log('hi');

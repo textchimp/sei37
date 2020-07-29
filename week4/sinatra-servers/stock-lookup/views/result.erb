@@ -1,0 +1,11 @@
+
+The current price for <%= @company %> is: <%= @stock_price %>
+
+<p>Names:</p>
+
+<ul>
+<!-- NO EQUALS SIGNS IN THE TEMPLATE TAGS FOR THE START AND END OF A LOOP! -->
+<% @names.each do |name| %>
+  <li> <%=  name  %> </li>
+<% end %>
+</ul>

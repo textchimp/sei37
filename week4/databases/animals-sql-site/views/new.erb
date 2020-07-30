@@ -1,0 +1,49 @@
+<h2>Add New Animal</h2>
+
+<form action="/animals" method="post"> <!-- isn't /animals the index route??!! -->
+
+  <label>
+    Name:
+    <input type="text" name="name">
+  </label>
+  <br>
+
+  <label>
+    Species:
+    <input type="text" name="species">
+  </label>
+  <br>
+
+  <label>
+    Description:
+    <input type="text" name="description">
+  </label>
+  <br>
+
+  <label>
+    Roundness:
+    <input type="text" name="roundness">
+  </label>
+  <br>
+
+  <label>
+    Alive:
+    <input type="text" name="alive"><!-- should be a checkbox! -->
+  </label>
+  <br>
+
+  <label>
+    Age:
+    <input type="text" name="age">
+  </label>
+  <br>
+
+  <label>
+    Image URL:
+    <input type="text" name="image_url">
+  </label>
+  <br>
+
+  <input type="submit" value="Create Animal">
+
+</form>

@@ -1,0 +1,43 @@
+
+<h2>All about <%= @animal['name'] %></h2>
+
+<a href="/animals/<%= @animal['id'] %>/edit">Edit This Animal</a>
+|
+<a href="/animals/<%= @animal['id'] %>/delete">Delete This Animal</a>
+
+
+<p>
+  <strong>Species:</strong>
+  <%= @animal['species'] %>
+</p>
+
+<p>
+  <strong>Roundness:</strong>
+  <%= @animal['roundness'] %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @animal['description'] %>
+</p>
+
+<p>
+  <strong>Age:</strong>
+  <%= @animal['age'] %>
+</p>
+
+<p>
+  <strong>Alive:</strong>
+  <!--
+  <% if @animal['alive'] == 1 %>
+    Yes
+  <% else %>
+    No
+  <% end %>
+  -->
+
+  <%=  @animal['alive'] == 1  ? 'Yes' : 'No'  %>
+
+</p>
+
+<img src="<%= @animal['image_url'] %>" alt="<%= @animal['name'] %>">

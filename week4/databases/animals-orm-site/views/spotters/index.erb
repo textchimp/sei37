@@ -1,0 +1,12 @@
+
+<h2>All Spotters</h2>
+
+<ul>
+<% @spotters.each do |spotter|  %>
+  <li>
+    <!-- need an <a> tag to link to the show page -->
+    <%= spotter.name %>
+    (spotting <%= spotter.animal.name %>)
+  </li>
+<% end %>
+</ul>

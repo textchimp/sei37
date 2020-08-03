@@ -1,0 +1,11 @@
+
+<h1>SEARCH RESULTS</h1>
+
+<ul>
+<% @results['results'].each do |movie| %>
+  <li style="display: inline-block"><!-- this should be in a CSS file!!! SoC dammit! -->
+    <!-- <img src="http://image.tmdb.org/t/p/w154<%= movie['poster_path'] %>" alt="<%= movie['title'] %>"> -->
+    <%= image_tag "http://image.tmdb.org/t/p/w154#{movie['poster_path']}", alt: movie['title'] %>
+  </li>
+<% end %>
+</ul>

@@ -1,0 +1,33 @@
+
+<h1>Hey Fancy Business Guy</h1>
+
+<p>Look up your favourite stonk here:</p>
+
+
+<form action="/stocks/lookup">
+  <label>
+    Stock code:
+    <input type="text" name="stock_code">
+  </label>
+
+  <button>Lookup</button>
+
+</form>
+
+<br>
+
+<!--
+Make a form here with the correct action="" attribute
+
+The form needs a single text input, with a sensible name="" attribute,
+which will determine the params[] key in the submit route action
+
+In the submit route, use the stock_quote gem (which is already "required")
+to submit the user's stock name to do the lookup
+
+Pull the lastest_price from the result, and save into an instance variable
+to show in the submit action's template
+
+  -->
+
+<img src="https://media.giphy.com/media/YnkMcHgNIMW4Yfmjxr/giphy.gif" alt="STONKS">

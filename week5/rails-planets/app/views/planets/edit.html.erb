@@ -1,0 +1,39 @@
+
+<h2>Edit Planet: <%= @planet.name %> </h2>
+
+<!-- action URL must be "/planets/:id" - we'll share the show page helper planet_path(id)   -->
+<form action="<%= planet_path( @planet.id ) %>" method="post">
+
+<label>
+  Name: <input type="text" name="name" value="<%= @planet.name %>">
+</label>
+<br>
+
+<label>
+  Orbit: <input type="text" name="orbit" value="<%= @planet.orbit %>">
+</label>
+<br>
+
+<label>
+  Diameter: <input type="text" name="diameter" value="<%= @planet.diameter %>">
+</label>
+<br>
+
+<label>
+  Mass: <input type="text" name="mass" value="<%= @planet.mass %>">
+</label>
+<br>
+
+<label>
+  Moons: <input type="text" name="moons" value="<%= @planet.moons %>">
+</label>
+<br>
+
+<label>
+  Image URL: <input type="text" name="image" value="<%= @planet.image %>">
+</label>
+<br>
+
+<button>Update Planet</button>
+
+</form>

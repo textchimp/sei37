@@ -1,0 +1,28 @@
+
+<h2>Planet <%= @planet.name %></h2>
+
+<a href="<%= planet_edit_path( @planet.id ) %>">Edit Planet</a>
+|
+<a href="<%= planet_destroy_path( @planet.id ) %>">Destroy Planet!</a>
+
+<p>
+  <strong>Orbit:</strong>
+  <%= @planet.orbit %> earth orbits
+</p>
+
+<p>
+  <strong>Diameter:</strong>
+  <%= @planet.diameter %> earth diameters
+</p>
+
+<p>
+  <strong>Mass:</strong>
+  <%= @planet.mass %> earth masses
+</p>
+
+<p>
+  <strong>Moons:</strong>
+  <%= @planet.moons %>
+</p>
+
+<%= image_tag @planet.image, alt: @planet.name, class: 'planet' %>

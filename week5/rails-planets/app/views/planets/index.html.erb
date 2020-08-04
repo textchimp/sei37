@@ -1,0 +1,12 @@
+
+<h3>Index of Planets</h3>
+
+<ul>
+<% @planets.each do |p| %>
+  <li>
+    <a href="<%= planet_path(p.id) %>">
+      <%= p.name %>
+    </a>
+  </li>
+<% end %>
+</ul>

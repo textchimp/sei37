@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>RailsPlanets</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+
+    <h1>Tour of the Solar System</h1>
+    <nav>
+      <a href="<%= planets_path %>">Index</a>
+      |
+      <a href="<%= planets_new_path %>">Add Planet</a>
+    </nav>
+    <hr>
+
+    <%= yield %>
+
+    <hr>
+    <footer>
+      &copy; Star Child Productions 2020
+    </footer>
+
+  </body>
+</html>

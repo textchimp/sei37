@@ -1,2 +1,20 @@
 
 <h2>All Artists</h2>
+
+<ul>
+<% @artists.each do |artist| %>
+
+  <li>
+    <!-- SHOW page URL is /artists/:id -->
+    <!--
+      <a href="<%= artist_path( artist.id ) %>">
+      <%= artist.name %>
+      </a>
+    -->
+
+    <%= link_to artist.name, artist_path(artist.id) %>
+
+  </li>
+
+<% end %>
+</ul>

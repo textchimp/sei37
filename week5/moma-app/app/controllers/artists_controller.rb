@@ -10,7 +10,9 @@ class ArtistsController < ApplicationController
   end
 
   # 2. Show page for an artist, by ID
-
+  def show
+    @artist = Artist.find params[:id]
+  end
 
 
 

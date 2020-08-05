@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get '/artists' => 'artists#index'
 
   # 2. Show page for a single artist by ID
+  # "as: 'artist'" tells rails to make the path
+  # helper method with the name 'artist_path'
+  get '/artists/:id' => 'artists#show', as: 'artist'
 
   # UPDATE
   # 1. Pre-filled form for a specific artist by ID

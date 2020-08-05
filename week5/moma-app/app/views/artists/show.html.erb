@@ -1,6 +1,10 @@
 
 <h2> <%= @artist.name %> </h2>
 
+<%= link_to 'Edit Artist', edit_artist_path(@artist.id) %>
+|
+<%= link_to 'Delete Artist', artist_path(@artist.id), method: 'delete' %>
+
 <br>
 
 <p>
@@ -23,4 +27,6 @@
   <strong>Biography:</strong> <%= @artist.bio %>
 </p>
 
-<%= image_tag @artist.image, alt: @artist.name, class: 'artist' %>
+<% if @artist.image.present? %>
+  <%= image_tag @artist.image, alt: @artist.name, class: 'artist' %>
+<% end %>

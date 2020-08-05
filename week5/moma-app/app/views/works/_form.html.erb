@@ -1,0 +1,31 @@
+<%= form_for @work do |f| %>
+
+  <%= f.label :title %><br>
+  <%= f.text_field :title %>
+  <br>
+
+  <%= f.label :year %><br>
+  <%= f.text_field :year %>
+  <br>
+
+  <%= f.label :medium %><br>
+  <%= f.text_field :medium %>
+  <br>
+
+  <%= f.label :style %><br>
+  <%= f.text_field :style %>
+  <br>
+
+  <%= f.label :image, 'Image URL:' %><br>
+  <%= f.text_field :image %>
+  <br>
+
+  <%= f.label :artist_id, 'Artist:' %><br>
+  <%= f.select :artist_id, Artist.pluck(:name, :id) %>
+  <br>
+
+  <br>
+
+  <%= f.submit %>
+
+<% end %>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   # Artists CRUD
 
   # CREATE
@@ -30,5 +31,9 @@ Rails.application.routes.draw do
   # DESTROY
   # Destroy artist row by ID, redirect to index
   delete '/artists/:id' => 'artists#destroy'
+
+
+  # Work CRUD routes:
+  resources :works
 
 end

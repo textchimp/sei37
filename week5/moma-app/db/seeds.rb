@@ -10,7 +10,7 @@ puts "Creating artists..."
 
 Artist.destroy_all
 
-Artist.create!(
+krasner = Artist.create!(
   name: 'Lee Krasner',
   nationality: 'USA',
   dob: '1908/10/27',  # must use the right format for dates!
@@ -20,7 +20,7 @@ Artist.create!(
   bio: 'Abstract Expressionist'
 )
 
-Artist.create!(
+kupka = Artist.create!(
   name: 'Frantisek Kupka',
   nationality: 'Czech',
   dob: '1871/09/23',
@@ -30,7 +30,32 @@ Artist.create!(
   bio: 'Vorticist/Abstract'
 )
 
-Artist.create! name: 'Max Ernst', nationality: 'German', dob: '1891/04/02', period: '20th Century', image: 'http://www.max-ernst.com/images/max-ernst-photo.jpg', roundness: 7, bio: 'Surrealist'
+ernst = Artist.create! name: 'Max Ernst', nationality: 'German', dob: '1891/04/02', period: '20th Century', image: 'http://www.max-ernst.com/images/max-ernst-photo.jpg', roundness: 7, bio: 'Surrealist'
 
 puts "Created  #{ Artist.count } artists:"
 puts Artist.pluck(:name).join(', ')
+
+
+
+
+Work.destroy_all
+puts "Creating works..."
+
+# Krasner
+Work.create! title: 'Gothic Landscape', year: '1961/01/01', medium: 'oil on canvas', style: 'Abstract expressionism', image: 'http://www.tate.org.uk/art/images/work/T/T03/T03291_10.jpg', artist_id: krasner.id
+
+# Krasner
+Work.create! title: 'Working Model', year: '1957/01/01', medium: 'bronze sculpture', style: 'Modernism', image: 'http://www.tate.org.uk/art/images/work/T/T00/T00390_10.jpg', artist_id: krasner.id
+
+# Kupka
+Work.create! title: 'Movement', year: '1946/01/01', medium: 'oil on canvas', style: 'Abstract expressionism', image: 'http://www.tresbohemes.com/wp-content/uploads/2016/04/Kupka-Movement.jpg', artist_id: kupka.id
+
+# Ernst
+Work.create! title: 'City with Animals', year: '1930/01/01', medium: 'oil on wood', style: 'Surrealism/cubism', image: 'https://i0.wp.com/www.guggenheim.org/wp-content/uploads/1914/01/48.1172.280_web.jpg?w=870', artist_id: ernst.id
+
+# Ernst
+Work.create! title: 'Die Versuchung des heiligen Antonius', year: '1946/01/01', medium: 'oil on canvas', style: 'Surrealism', image: 'http://www.dandy-club.com/wp-content/uploads/2013/01/main.jart2_.jpg', artist_id: ernst.id
+
+
+puts "Created #{ Work.count } works:"
+puts Work.pluck(:title).join(', ')

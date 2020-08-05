@@ -10,6 +10,22 @@
   </head>
 
   <body>
+
+    <header>
+      <h1>MoMA Artists</h1>
+      <nav>
+        <%= link_to 'Artist Index', artists_path %>
+      </nav>
+      <hr>
+    </header>
+
     <%= yield %>
+
+  <footer>
+    <hr>
+    &copy; Art School Dropout Productions 2020
+  </footer>
+
+
   </body>
 </html>

@@ -1,0 +1,16 @@
+
+<h2>Login</h2>
+
+<!-- we are not interacting with a model object, so we don't use 'form_for @obj' -->
+<%= form_tag login_path do %>
+
+  <%= label_tag :email %>
+  <%= email_field_tag :email %>
+  <br>
+
+  <%= label_tag :password %>
+  <%= password_field_tag :password %>
+  <br>
+  <%= submit_tag 'Login' %>
+
+<% end %>

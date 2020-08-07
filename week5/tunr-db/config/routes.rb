@@ -4,12 +4,19 @@ Rails.application.routes.draw do
   get '/home' => 'pages#home'
 
   # Session routes:
-
   get  '/login' => 'session#new'     # login form
 
   # form submits here, do authentication & create session & redirect, or show form with errors
   post '/login' => 'session#create'
 
   delete '/login' => 'session#destroy'  # logout, i.e. delete session for this user
+
+
+
+  # Users CRUD
+  resources :users
+
+  # Mixtapes CRUD
+  resources :mixtapes
 
 end

@@ -1,0 +1,14 @@
+<%= form_for @mixtape do |f| %>
+
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <br>
+
+  <%= f.label :image, 'Image URL' %>
+  <%= f.text_field :image %>
+  <br>
+
+  <%= f.submit %>
+
+
+<% end %>

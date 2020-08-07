@@ -24,9 +24,14 @@ class SessionController < ApplicationController
       redirect_to home_path
 
     else
-      # either the user was nil (no such email address), or the password didn't match
-      # unsuccessful login
+      # Either the user was nil (no such email address), or the password didn't match:
+      # either way, it's an unsuccessful login
 
+      # The 'flash' hash is a bit like 'session' in that it is remembered ACROSS
+      # page requests.... but ONLY for ONE more page load, and then it
+      # disappears. This allows us to show error messages e.g. on login forms,
+      # but not forever, only for the next page visit (i.e. the redirect)
+      flash[:error] = 'Invalid email or password'
       redirect_to login_path   # show the login form again to correct errors
 
     end  # login check

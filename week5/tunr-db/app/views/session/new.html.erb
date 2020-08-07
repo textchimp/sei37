@@ -1,6 +1,16 @@
 
 <h2>Login</h2>
 
+<% if flash[:error] %>
+  <!-- print out any error messages from the controller -->
+  <br>
+  <strong>
+    <%= flash[:error] %>
+  </strong>
+  <br>
+  <br>
+<% end %>
+
 <!-- we are not interacting with a model object, so we don't use 'form_for @obj' -->
 <%= form_tag login_path do %>
 

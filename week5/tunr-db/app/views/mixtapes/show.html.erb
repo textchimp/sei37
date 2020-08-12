@@ -2,9 +2,23 @@
   <%= @mixtape.title %>
 </h2>
 
+<p>
+
+  <%= controller.controller_name %>
+  |
+  <%= controller.action_name %>
+
+</p>
+
 <% if @mixtape.user_id == @current_user.id  %>
   <%= link_to 'Edit Mixtape', edit_mixtape_path(@mixtape) %>
 <% end %>
+
+<br>
+
+<%= cl_image_tag @mixtape.image, class: 'userImage' %>
+<!-- the cl_image_tag allows you to do a bunch of cool stuff, like ask cloudinary
+  to serve the image with specific dimensions, or effects like sepia, black and white, etc. Check out the cloudinary docs on image transformation.  -->
 
 <br><br>
 

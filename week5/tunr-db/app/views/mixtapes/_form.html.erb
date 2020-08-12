@@ -1,11 +1,18 @@
-<%= form_for @mixtape do |f| %>
+
+
+<%= form_for @mixtape, html: {multipart: true}  do |f| %>
 
   <%= f.label :title %>
   <%= f.text_field :title %>
   <br>
 
   <%= f.label :image, 'Image URL' %>
-  <%= f.text_field :image %>
+
+  <!-- <%= f.text_field :image %> -->
+
+  <%= f.cl_image_upload :image %>
+
+
   <br>
 
   <%= f.submit %>

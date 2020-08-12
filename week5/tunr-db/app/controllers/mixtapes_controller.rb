@@ -11,8 +11,20 @@ class MixtapesController < ApplicationController
   end
 
   def create
+
+    # raise 'hell'
+
     # Create mixtape, and associate it with the logged-in user
     @mixtape = Mixtape.new mixtape_params
+
+    # Handle upload, if file was uploaded
+    if params[:file].present?
+      # actually forward uploaded file on to Cloudinary server
+      response = Cloudinary::Uploader.upload params[:file]
+      @mixtape.image = response['public_id']
+      @mixtape.save # most of you will need this
+    end
+
     # 1. set user_id and save (we used .new above, so only one DB query)
     @mixtape.user_id = @current_user.id
     @mixtape.save

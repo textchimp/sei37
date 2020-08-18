@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Movie Search</title>
+  <script src="js/jquery.js"></script>
+  <script src="js/main.js"></script>
+  <style>
+    img.result {
+      cursor: pointer;
+    }
+    #movieDetails {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Movie Search</h1>
+  <form id="searchForm">
+    <input type="text" id="searchText" value="alien">
+    <button>Search</button>
+  </form>
+  <hr/>
+
+  <div id="searchResults">
+  </div>
+
+  <div id="movieDetails">
+    <!-- template for the show page, which we'll fill in using jQuery when we get the AJAX response from the /movie/:id API request -->
+
+    <button>Back to Results</button>
+
+    <h3></h3><!-- title -->
+    <h5></h5><!-- tagline -->
+    <p></p><!-- overview -->
+    <img><!-- poster -->
+  </div>
+
+</body>
+</html>

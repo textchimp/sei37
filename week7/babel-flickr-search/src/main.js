@@ -55,6 +55,6 @@ const displaySearchResults = (results) => {
 
 }; // displaySearchResults()
 
-const generatePhotoURL = (photo, size='q') => {
+const generatePhotoURL = (photo, size='q', debug=false) => {
   return `https://farm${photo.farm}.staticflickr.com/${photo.server}/${photo.id}_${photo.secret}_${size}.jpg`;
 };

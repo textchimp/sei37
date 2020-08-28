@@ -1,4 +1,14 @@
 
+# TODO: memoize this recursive function!
+# create a hash, and each time the function
+# runs, it checks if n (its argument) is already
+# a key in the hash; if not, run the functin
+# as normal, but SAVE the return value of the
+# function as a value of the key n, in the hash.
+# If the key is already in the hash, that means
+# fib(n) has already been calculated, so use
+# the value of that key as your return value.
+
 def fib_rec( n )
 
   # Define the base case
@@ -10,5 +20,4 @@ def fib_rec( n )
   end
 end
 
-
-puts fib_rec( 50 )
+puts fib_rec( ARGV.first.to_i )

@@ -10,6 +10,7 @@ class FlightsController < ApplicationController
   end
 
   def search
+    # sleep 3  # simulate slow connection
     results = Flight.where(origin: params[:origin], destination: params[:destination])
     # include: [:airplane]
     render json: results, include: {

@@ -3,6 +3,7 @@ import Router from 'vue-router'
 // import HelloWorld from '@/components/HelloWorld'
 import FlightSearch from '@/views/FlightSearch';
 import FlightSearchResults from '@/views/FlightSearchResults';
+import FlightDetails from '@/views/FlightDetails';
 
 
 Vue.use(Router)
@@ -29,6 +30,14 @@ export default new Router({
       //    this.$route.params.origin
       // instead we can just say:
       //    this.origin
+    },
+
+    // Flight Show route: /flights/:id
+    {
+      path: '/flights/:id',
+      name: 'FlightShow',
+      component: FlightDetails,
+      props: true   // gives us 'this.id' inside component
     }
 
   ]

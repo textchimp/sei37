@@ -19,9 +19,15 @@
       puts flight.flight_number
     end
     -->
+
+    <!-- TODO: distinguish between results NOT LOADED YET and a search with NO MATCHES  -->
+    <div v-if="flights.length === 0">
+      <p>Loading results...</p>
+    </div>
+
     <div
       v-for="flight in flights"
-      v-on:click="gotoFlightDetails(flight.id)"
+      @click="gotoFlightDetails(flight.id)"
       class="container result"
      >
 
@@ -60,6 +66,7 @@ export default {
 
     console.log('FlightSearchResults mounted!');
     const url = `${RAILS_FLIGHT_SEARCH_BASE_URL}/${ this.origin }/${ this.destination }`;
+    // Rails API URL looks like: "/flights/search/SYD/MEL"
 
     axios.get(url)
     .then(  res => {
@@ -78,7 +85,13 @@ export default {
       //   1. create that route in router/index.js
       //   2. use .push, pass the flightID in as a param
       //   (see navigation from FlightSearch to FlightSearchResults as an example)
-    }
+
+      this.$router.push({
+        name: 'FlightShow',
+        params: { id: flightID }
+      });
+
+    } // gotoFlightDetails()
 
   } // methods()
 
@@ -102,6 +115,7 @@ export default {
 
 .result {
   cursor: pointer;
+  transition: 0.5s;
 }
 
 .result:hover{

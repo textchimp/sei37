@@ -5,8 +5,24 @@ class FlightsController < ApplicationController
 
   # GET /flights/:id
   def show
-    render json: Flight.find( params[:id] )
-    # TODO: include reservations and airplane associations!
+    # render json: Flight.find( params[:id] ),
+    #   include: [ :airplane, :reservations  ],
+    #   except:  [ :created_at, :updated_at  ],
+    #   methods: [ :departure_date_formatted ]
+
+    render json: Flight.find( params[:id] ),
+      except:  [ :created_at, :updated_at  ],
+      methods: [ :departure_date_formatted ],
+      include: {
+        airplane: { only: [:name, :rows, :cols] },
+        reservations: {
+          include: {
+            user: { only: [:name] }
+          },
+          except: [:created_at, :updated_at]
+        } # reservations
+      }
+
   end
 
   def search

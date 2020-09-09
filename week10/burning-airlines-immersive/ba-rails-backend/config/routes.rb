@@ -5,4 +5,7 @@ Rails.application.routes.draw do
 
   resources :flights, only: [:index, :show]
 
+  # API endpoint for adding a new reservation to a flight
+  post '/reservations' => 'flights#reservation_create'
+
 end

@@ -20,6 +20,21 @@
     <br>
     <strong>Seats:</strong> {{ flight.airplane.rows * flight.airplane.cols }}
 
+    <ReservationConfirm
+      v-if="seat.row && seat.col"
+      :selectedSeat="seat"
+      :flightID="flight.id"
+      v-on:seatBooked="updateReservations"
+    />
+    <!-- ^^ We are listening for 'seatBooked' events being
+         emitted by this child component, i.e when it runs:
+           this.$emit( 'seatBooked', someData );
+         The handler 'updateReservations' has to be defined
+         in the methods for this parent component FlightDetails,
+         and it has to expect arguments, if the child is passing
+         any
+    -->
+
     <div class="seating">
 
       <!-- loop over rows -->
@@ -27,7 +42,8 @@
         {{ row }}
         <div class="planeSeat"
          v-for="col in flight.airplane.cols"
-         v-bind:class="seatStatus(row, col)"
+         :class="seatStatus(row, col)"
+         @click="selectSeat(row, col)"
         >
           {{ col | toSeatLetter }}
         </div>
@@ -48,6 +64,8 @@
 
 <script>
 
+import ReservationConfirm from '@/components/ReservationConfirm';
+
 window.seatLoops = 0;
 
 import axios from 'axios';
@@ -58,11 +76,22 @@ const FAKE_LOGGED_IN_USER_ID = 10;
 
 export default {
   props: ['id'],
-
+  components: {
+    // The current component needs you to 'register'
+    // any child components it is going to use:
+    ReservationConfirm
+  },
   data(){
     return {
       // state goes here
-      flight: {}
+      flight: {},
+      reservationsLookup: {},
+      seat: {
+        // For keeping track of the user's selected seat,
+        // before confirmation
+        row: null,
+        col: null
+      }
     };
   },
 
@@ -74,6 +103,18 @@ export default {
     .then( res => {
       console.log('response', res.data);
       this.flight = res.data;  // save the response data into state (for display)
+
+      // Build the reservations lookup table:
+      // loop through the reservations array,
+      // and construct an object where each key
+      // is the combo of row+col, and the value
+      // is the user ID for the reservation
+      res.data.reservations.forEach( r => {
+        const key = `${r.row}-${r.col}`; // i.e. '10-2'
+        this.reservationsLookup[key] = r.user_id;
+      }); // forEach
+
+
     })
     .catch( err => console.warn(err) );
 
@@ -91,6 +132,41 @@ export default {
   },
 
   methods: {
+
+    updateReservations( reservation ){
+
+      console.log('updateReservations()', reservation);
+
+      // Update the reservationsLookup to include our new booking
+      const key = `${reservation.row}-${reservation.col}`; // i.e. '10-2'
+
+      // NOPE! Vue does not notice new keys added to
+      // state objects. You must use this.$set() to do this.
+      // ...kind of like React's "this.setState()"
+      // this.reservationsLookup[key] = reservation.user_id;
+      this.$set( this.reservationsLookup, key, reservation.user_id );
+
+      // De-select the selected seat, since it's now booked by us
+      this.seat = { row: null, col: null };
+
+
+    }, // updateReservations(),
+
+
+    selectSeat(row, col){
+
+      console.log('selectSeat()', row, col);
+
+      // De-select the seat if it is already the selected seat
+      if( row === this.seat.row && col === this.seat.col ){
+        row = null;
+        col = null;
+      }
+
+      this.seat = { row, col }; // save the selection into state
+
+    }, // selectSeat()
+
     seatStatus(row, col){
 
       // 1. Loop through all the reservations for this flight
@@ -108,25 +184,55 @@ export default {
       // i.e. get Rails to create a HASH of reservations, from the array, and
       // render that as part of the json response
 
-      for( let i = 0; i < this.flight.reservations.length; i++ ){
-        window.seatLoops++;
-        const res = this.flight.reservations[i];
-        // Is this a reservation for the current seat we're checking?
-        if( res.row === row && res.col === col ){
+      // for( let i = 0; i < this.flight.reservations.length; i++ ){
+      //   window.seatLoops++;
+      //   const res = this.flight.reservations[i];
+      //   // Is this a reservation for the current seat we're checking?
+      //   if( res.row === row && res.col === col ){
+      //
+      //     if( res.user_id === FAKE_LOGGED_IN_USER_ID ){
+      //       // The seat is booked by the logged-in user
+      //       return 'booked';
+      //     } else {
+      //       return 'occupied';  // someone else
+      //     }
+      //
+      //   } // if (reservation is for current seat)
+      // } // for
 
-          if( res.user_id === FAKE_LOGGED_IN_USER_ID ){
-            // The seat is booked by the logged-in user
-            return 'booked';
-          } else {
-            return 'occupied';  // someone else
-          }
+      window.seatLoops++;
 
-        } // if (reservation is for current seat)
-      } // for
+      // First, check if the current seat is selected as
+      // the seat that is about to be booked.
+      if( row === this.seat.row && col == this.seat.col){
+        return 'selected';
+      }
 
-      return 'available';
 
-      // using ES6 .some() 
+      // NO NESTED LOOPING!
+      // To check whether a seat is reserved, look up
+      // its row-col as a key of the reservationsLookup
+      // hash.
+      const key = `${row}-${col}`;
+      const resUser = this.reservationsLookup[key];
+
+      if( resUser !== undefined  ){
+
+        if( resUser === FAKE_LOGGED_IN_USER_ID ){
+          // The seat is booked by the logged-in user
+          return 'booked';
+        } else {
+          // it's reserved by someone else
+          return 'occupied';
+        }
+
+      } else {
+        // The key is not defined, i.e. the seat is free
+        return 'available';
+      }
+
+
+      // using ES6 .some()
       // const found = this.flight.reservations.some( r => r.row === row && r.col === col );
       // return found ? 'occupied' : 'available';
 
@@ -164,6 +270,11 @@ export default {
 .occupied {
   background-color: grey;
   pointer-events: none; /* ignore clicks on occupied seats! can't reserve */
+}
+
+.selected {
+  background-color: rgb(100, 255, 37);
+  border: 1px solid green !important;
 }
 
 </style>

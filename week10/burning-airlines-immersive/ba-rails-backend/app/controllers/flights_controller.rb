@@ -1,4 +1,9 @@
 class FlightsController < ApplicationController
+
+  skip_before_action :verify_authenticity_token, raise: false
+
+  FAKE_CURRENT_USER_ID = 10
+
   def index
     render json: Flight.all
   end
@@ -36,4 +41,20 @@ class FlightsController < ApplicationController
     methods: [:departure_date_formatted] # include the result of running this method
   end
 
-end
+  def reservation_create
+    # use a fake user id
+    # TODO: set up knock to get a real @current_user
+
+    # TODO: check for validation failures
+    reservation = Reservation.create(
+      row: params[:row],
+      col: params[:col],
+      flight_id: params[:flight_id],
+      user_id: FAKE_CURRENT_USER_ID
+    )
+
+    render json: reservation
+
+  end
+
+end # class FlightsController

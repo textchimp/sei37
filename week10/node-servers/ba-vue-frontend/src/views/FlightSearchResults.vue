@@ -27,11 +27,11 @@
 
     <div
       v-for="flight in flights"
-      @click="gotoFlightDetails(flight.id)"
+      @click="gotoFlightDetails(flight.flight_number)"
       class="container result"
      >
 
-      <div>{{ flight.departure_date_formatted }}</div>
+      <div>{{ flight.departure_date }}</div>
       <div>{{ flight.flight_number }}</div>
       <div>{{ flight.airplane.name  }}</div>
       <div>{{ flight.origin }}</div>
@@ -45,7 +45,11 @@
 <script>
 
 import axios from 'axios';
-const RAILS_FLIGHT_SEARCH_BASE_URL = 'http://localhost:3000/flights/search';
+// const RAILS_FLIGHT_SEARCH_BASE_URL = 'http://localhost:3000/flights/search';
+
+// Use the Express port number, might as well keep the path
+// the same
+const RAILS_FLIGHT_SEARCH_BASE_URL = 'http://localhost:1337/flights/search';
 
 export default {
   props: ['origin', 'destination'],

@@ -42,6 +42,9 @@ group :development, :test do
   gem 'shoulda-matchers'  # for testing associations
   gem 'rails-controller-testing'
 
+  gem 'capybara'   # for HTML testing using CSS selectors
+
+  gem 'simplecov', require: false
 
 end
 

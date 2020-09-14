@@ -1,7 +1,7 @@
 <template lang="html">
 <div>
 
-  <div v-if="flight.id">
+  <div v-if="flight._id">
     <!--
      The v-if condition will only be true once the flight data
      has loaded into the state called 'flight', i.e. this content
@@ -10,7 +10,7 @@
      -->
     <h1>Flight {{ flight.flight_number }}</h1>
 
-    <strong>Departure Date:</strong> {{ flight.departure_date_formatted }}
+    <strong>Departure Date:</strong> {{ flight.departure_date }}
     <br>
     <strong>Origin:</strong> {{ flight.origin }}
     <br>
@@ -23,7 +23,7 @@
     <ReservationConfirm
       v-if="seat.row && seat.col"
       :selectedSeat="seat"
-      :flightID="flight.id"
+      :flightID="flight._id"
       v-on:seatBooked="updateReservations"
     />
     <!-- ^^ We are listening for 'seatBooked' events being
@@ -69,7 +69,11 @@ import ReservationConfirm from '@/components/ReservationConfirm';
 window.seatLoops = 0;
 
 import axios from 'axios';
-const RAILS_FLIGHT_SHOW_BASE_URL = 'http://localhost:3000/flights/';
+// const RAILS_FLIGHT_SHOW_BASE_URL = 'http://localhost:3000/flights/';
+
+// Express version of the URL
+const RAILS_FLIGHT_SHOW_BASE_URL = 'http://localhost:1337/flights/';
+
 
 // TODO: implement a real login system with real authentication
 const FAKE_LOGGED_IN_USER_ID = 10;

@@ -14,7 +14,8 @@
 <script>
 
 import axios from 'axios';
-const RAILS_RESERVATION_CREATE_URL = 'http://localhost:3000/reservations';
+// const RAILS_RESERVATION_CREATE_URL = 'http://localhost:3000/reservations';
+const RAILS_RESERVATION_CREATE_URL = 'http://localhost:1337/reservations';
 
 
 export default {
@@ -41,6 +42,7 @@ export default {
         // from the parent component to the child, as a prop.
         // All components have a built-in $emit() method that lets
         // them send named events & data up to the parent component.
+
         this.$emit( 'seatBooked', res.data );
 
 

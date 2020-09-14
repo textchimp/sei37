@@ -61,6 +61,74 @@ RSpec.describe FruitsController, type: :controller do
 
   end  #  GET #index
 
-  # TODO: test POSTing data! 
+
+  # TODO: test POSTing data!
+  describe 'POST to #create' do
+
+    # before block here to create @shelf ?
+
+    describe 'a fruit with valid information' do
+
+      before do
+
+        @shelf = Shelf.create name: 'Test Shelf'
+
+        post :create, params: {
+          fruit: {
+            name: 'Strawberry',
+            shelf_id: @shelf.id
+          }
+        }
+
+      end # before
+
+
+      #### superseded by redirect example below
+      # it 'returns HTTP success' do
+      #   expect( response ).to have_http_status(:success)
+      # end
+
+
+      it 'increases the number of fruits in the database by 1' do
+        expect( Fruit.all.length ).to eq 1
+      end
+
+
+      it 'redirects to the show action for this fruit' do
+        expect( response ).to redirect_to( Fruit.first )
+      end
+
+
+    end  # valid info
+
+    describe 'a fruit with invalid information' do
+
+      before do
+        @shelf = Shelf.create name: 'Test Shelf'
+
+        post :create, params: {
+          fruit: {
+            name: '',
+            shelf_id: @shelf.id
+          }
+        }
+
+      end # before
+
+
+      it 'does not increase the number of fruits in the DB' do
+        expect( Fruit.all.length ).to eq 0
+      end
+
+      it 'renders the #new template' do
+        expect( response ).to render_template( :new )
+      end
+
+
+    end  # invalid info
+
+
+  end # POST to #create
+
 
 end # describe FruitsController

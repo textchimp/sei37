@@ -20,6 +20,12 @@
     <br>
     <strong>Seats:</strong> {{ flight.airplane.rows * flight.airplane.cols }}
 
+    <div v-if="bookedSeat.row && bookedSeat.col" class="bookedMessage">
+      Congratulations! You have successfully booked seat
+      {{ bookedSeat.row }}
+      {{ bookedSeat.col | toSeatLetter }}
+    </div>
+
     <ReservationConfirm
       v-if="seat.row && seat.col"
       :selectedSeat="seat"
@@ -79,7 +85,7 @@ const RAILS_FLIGHT_SHOW_BASE_URL = 'http://localhost:1337/flights/';
 const FAKE_LOGGED_IN_USER_ID = 10;
 
 export default {
-  props: ['id'],
+  props: ['id', 'currentUser'],
   components: {
     // The current component needs you to 'register'
     // any child components it is going to use:
@@ -93,6 +99,11 @@ export default {
       seat: {
         // For keeping track of the user's selected seat,
         // before confirmation
+        row: null,
+        col: null
+      },
+      bookedSeat: {
+        // For showing a "booking successful" message
         row: null,
         col: null
       }
@@ -154,6 +165,9 @@ export default {
       // This also hides the ReservationConfirm component again
       this.seat = { row: null, col: null };
 
+      // Set this bit of state to display a "booking successful"
+      // message
+      this.bookedSeat = { row: reservation.row, col: reservation.col };
 
     }, // updateReservations(),
 
@@ -169,6 +183,10 @@ export default {
       }
 
       this.seat = { row, col }; // save the selection into state
+
+      // Stop "booking successful" message from appearing once
+      // the user starts selecting new seats for the next booking
+      this.bookedSeat = { row: null, col: null };
 
     }, // selectSeat()
 
@@ -280,6 +298,12 @@ export default {
 .selected {
   background-color: rgb(100, 255, 37);
   border: 1px solid green !important;
+}
+
+.bookedMessage {
+  padding-top: 20px;
+  font-weight: bold;
+  color: green;
 }
 
 </style>

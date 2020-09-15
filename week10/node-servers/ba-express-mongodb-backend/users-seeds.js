@@ -1,4 +1,6 @@
 
+const bcrypt = require('bcrypt');
+
 const MongoClient = require('mongodb').MongoClient;
 let db;
 
@@ -27,19 +29,19 @@ const insertUsers = () => {
     {
       name: 'Test User 1',
       email: 'one@one.com',
-      passwordDigest: '',
+      passwordDigest: bcrypt.hashSync('chicken', 10),
       bio: 'Rando 1'
     },
     {
       name: 'Test User 2',
       email: 'two@two.com',
-      passwordDigest: '',
+      passwordDigest: bcrypt.hashSync('chicken', 10),
       bio: 'Rando 2'
     },
     {
       name: 'Test User 3',
       email: 'three@three.com',
-      passwordDigest: '',
+      passwordDigest: bcrypt.hashSync('chicken', 10),
       bio: 'Rando 3'
     },
 

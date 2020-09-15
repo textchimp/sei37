@@ -4,7 +4,7 @@ import Router from 'vue-router'
 import FlightSearch from '@/views/FlightSearch';
 import FlightSearchResults from '@/views/FlightSearchResults';
 import FlightDetails from '@/views/FlightDetails';
-
+import Login from '@/views/Login';
 
 Vue.use(Router)
 
@@ -38,6 +38,12 @@ export default new Router({
       name: 'FlightShow',
       component: FlightDetails,
       props: true   // gives us 'this.id' inside component
+    },
+
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     }
 
   ]

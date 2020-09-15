@@ -11,6 +11,29 @@ MongoClient.connect('mongodb://127.0.0.1:27017', { useNewUrlParser: true, useUni
 
 }); // .connect()
 
+
+// For checking passwords on login
+const bcrypt = require('bcrypt');
+
+// For creating signed login tokens to send to the frontend
+// (like a session cookie in Rails)
+const jwt = require('jsonwebtoken');
+
+// For decoding/checking JWT tokens in the header of requests:
+const jwtAuthenticate = require('express-jwt');
+// Use this function to lock down any route that should
+// be for logged-in users only
+const checkAuth = () => {
+  return jwtAuthenticate({
+    secret: SERVER_SECRET_KEY,
+    algorithms:  ['HS256']
+  });
+};
+
+// TODO: Move this out of server file, into .env or .bash_profile etc
+const SERVER_SECRET_KEY = 'yourSecretKeyHereCHICKEN';
+
+
 // Express server initialisation
 const express = require('express');
 const app = express();
@@ -47,7 +70,7 @@ app.get('/flights', (req, res) => {
 }); // GET /flights
 
 
-app.get('/flights/search/:origin/:destination', (req, res) => {
+app.get('/flights/search/:origin/:destination', checkAuth(), (req, res) => {
   // res.json( req.params );
 
   // ActivRecord:
@@ -144,11 +167,68 @@ app.post('/reservations', (req, res) => {
 }); // POST /reservations
 //  -- .update()
 
+// Login form on frontend submits to here (using Ajax)
+app.post('/login', (req, res) => {
+  console.log('posted data:', req.body);
+  // res.json( req.body ); // echo back the POSTed formdata
 
-// app.post('/login')
-  // - how to check?
-  // - and if successful, how to create a JWT and
-  // send it back as the response?
+  const { email, password } = req.body;
+
+  db.collection('users').findOne({ email }, (err, user) => {
+
+    if( err ){
+      res.status(500).json({ message: 'Server error' });
+      return console.log('Error retrieving user', err);
+    }
+
+    console.log('User found:', user);
+    // res.json( user );
+
+    // Check that we actually found a user with the specified email,
+    // and also that the password given matches the password for
+    // that user
+    if( user && bcrypt.compareSync(password, user.passwordDigest) ){
+      // Successful login!
+
+      // Generate a signed JWT token which contains the user data
+      const token = jwt.sign(
+        {
+          _id: user._id,
+          email: user.email,
+          name: user.name
+        },
+        SERVER_SECRET_KEY,
+        { expiresIn: '72h' }
+      );
+
+      res.json({ user, token, success: true });
+
+    } else {
+      // User not found, or passwords don't match - failed login
+      res.status(401).json({ message: 'Authentication failed' });
+    }
+
+
+  }); // find user
+
+}); // POST /login
+
+
+
+// Check authentication for this route, i.e. logged-in users only
+app.get('/flights-seekrit', checkAuth(), (req, res) => {
+  res.json({ seekrit: 'For British Eyes Only', user: req.user });
+});
+
+// Define an error handler function for express to use
+// whenever there is an authentication error
+app.use( (err, req, res, next) => {
+  if( err.name === 'UnauthorizedError' ){
+    console.log('Unauthorized Request:', req.path);
+    res.status(401).json({ error: 'Invalid token' });
+  }
+});
+
 
 // TEST using curl:
 // curl -XPOST -d '{"email":"one@one.com", "password":"chicken"}' http://localhost:1337/login -H 'content-type: application/json'

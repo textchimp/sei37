@@ -10,9 +10,7 @@ class Profile extends React.Component {
     userRepos: []  // the Ajax request will return an array we need to .map over
   };
 
-  // This method runs once when the component is added to the DOM
-  componentDidMount(){
-    console.log('Profile component mounted!');
+  fetchGitHubInfo(){
 
     const infoUrl = `${ GITHUB_BASE_URL }/${ this.props.match.params.user }${ GITHUB_TOKENS }`;
     axios.get(infoUrl)
@@ -30,8 +28,44 @@ class Profile extends React.Component {
     })
     .catch( err => console.warn(err) );
 
+  } //fetchGitHubInfo()
+
+
+  // This method runs once when the component is added to the DOM
+  componentDidMount(){
+    console.log('Profile component mounted!');
+
+    this.fetchGitHubInfo();
 
   } // componentDidMount()
+
+
+  // This lifecycle method, if defined in your component class,
+  // will be run whenever the component's props or state are
+  // updated. The method will be passed the previous values
+  // of props and state before they were updated. You will
+  // probably need to compare the current values to the
+  //  previous values!
+  componentDidUpdate(prevProps, prevState){
+    console.log('componentDidUpdate() ============================');
+
+    // Check the *reason* that componentDidUpdate is running
+    // right now - is it because the props we care about have
+    // updated? Or is it something else, like state updating?
+    if( prevProps.match.params.user !== this.props.match.params.user ){
+      console.log('NOW WE ARE SETTING STATE');
+      console.log('(i.e. it WAS the props that changed)');
+      // this.setState({ userInfo: { name: 'test'} });
+      this.fetchGitHubInfo();
+    }
+    // else {
+    //   console.log('NOT setting state');
+    //   console.log('(i.e. the props did not change, it was setState that triggered this componentDidUpdate() )');
+    // }
+
+  } // componentDidUpdate()
+
+
 
   render(){
 

@@ -46,6 +46,106 @@ app.use( express.json() ); // Enable support for JSON-encoded request bodies (i.
 app.use( express.urlencoded({ extended: true }) );
 
 
+// GraphQL backend setup
+const { graphqlHTTP }  = require('express-graphql');
+const { buildSchema } = require('graphql');
+
+const schema = buildSchema(`
+  type Query {
+    flight(id: String): Flight,
+    flights(origin: String, destination: String): [Flight]
+  },
+  type Flight {
+    flight_number: String,
+    origin: String,
+    destination: String,
+    _id: String,
+    reservations: [Reservation]
+  },
+  type Reservation {
+    row: Int,
+    col: Int
+  }
+`);
+
+const getFlight = (query) => {
+  console.log('getFlights()', query);
+
+  // BECAUSE MongoDB queries involve a callback which is run
+  // when the query is finished, we can't write "return flight;" inside
+  // that callback - it won't be returning from the parent getFlight()
+  // function, just from the callback.
+  // INSTEAD, we have getFlight return a Promise object:
+  // inside the Promise callback, we run resolve() from inside the
+  // MongoDB query callback, to signal to GraphQL that the data is
+  // available. This only works because GraphQL is setup to expect
+  // promises as something that resolver functions can return...
+  // i.e. GraphQL is somewhere running something like
+  //    getFlight(query).then( data => res.json(data) );
+  return new Promise( (resolve, reject) => {
+
+    db.collection('flights').findOne(ObjectId(query.id), (err, flight) => {
+
+      if( err ){
+        reject( err );
+        return console.log('ERROR querying flight', err);
+      }
+
+      console.log('found flight', flight);
+      // return flight;
+      resolve( flight );
+
+    }); // mongo query
+
+  }); // new Promise
+
+  // return {
+  //   flight_number: 'BA12',
+  //   origin: 'SYD',
+  //   destination: 'SIN',
+  //   _id: '12387123',
+  //   reservations: []
+  // };
+}; // getFlight()
+
+
+const getFlights = (query) => {
+
+  console.log('getFlights()', query);
+
+  return new Promise( (resolve, reject) => {
+
+    db.collection('flights').find(query).toArray( (err, flights) => {
+
+      if( err ){
+        reject( err );
+        return console.log('Error querying flights', err);
+      }
+
+      resolve( flights );
+
+    }); // .find.toArray()
+
+  }); // new Promise
+
+}; // getFlights()
+
+const rootResolver = {
+  flight: getFlight, /// we need to define the function getFlight()
+  flights: getFlights
+};
+
+app.use('/graphql', graphqlHTTP({
+  schema: schema,
+  rootValue: rootResolver,
+  graphiql: true
+}));
+
+// TODO: Use "Apollo" package in the frontend to do GraphQL
+// queries from inside your React or Vue frontend
+
+
+
 app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT} ...`);
 });

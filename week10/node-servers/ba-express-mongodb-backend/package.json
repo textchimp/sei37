@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "seed": "node flights-seeds.js; node users-seeds.js",
     "seed-mongoose": "node models/seeds.js",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "debug": "ndb index.js"
   },
   "keywords": [],
   "author": "",

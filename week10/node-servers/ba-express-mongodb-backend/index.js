@@ -55,21 +55,53 @@ const schema = buildSchema(`
     flight(id: String): Flight,
     flights(origin: String, destination: String): [Flight]
   },
+
+  type Mutation {
+    createReservation(row: Int!, col: Int!, flightID: String!): Reservation
+  },
+
   type Flight {
-    flight_number: String,
+    flightNumber: String,
     origin: String,
     destination: String,
     _id: String,
     reservations: [Reservation]
   },
+
   type Reservation {
     row: Int,
-    col: Int
+    col: Int,
+    flightID: String,
+    userID: String,
   }
 `);
 
-const getFlight = (query) => {
-  console.log('getFlights()', query);
+// Mutation example query:
+//
+// mutation Res($row: Int!, $col:Int!, $flightID: String!){
+//   createReservation(row:$row, col:$col,flightID:$flightID){
+//      row
+//      col
+//      flightID
+//   }
+// }
+//
+// in variables:
+//
+// {
+//   "row": 1,
+//   "col": 2,
+//   "flightID": "abcdef"
+// }
+
+
+// type Mutation {
+//   signup (username: String!, email: String!, password: String!): String
+//   login (email: String!, password: String!): String
+// }
+
+const getFlight = (query, req) => {
+  console.log('getFlights()', query );//, req, context);
 
   // BECAUSE MongoDB queries involve a callback which is run
   // when the query is finished, we can't write "return flight;" inside
@@ -84,12 +116,14 @@ const getFlight = (query) => {
   //    getFlight(query).then( data => res.json(data) );
   return new Promise( (resolve, reject) => {
 
-    db.collection('flights').findOne(ObjectId(query.id), (err, flight) => {
+    db.collection('flightsdsds').findOne(ObjectId(query.id), (err, flight) => {
 
-      if( err ){
-        reject( err );
-        return console.log('ERROR querying flight', err);
-      }
+      // if( err ){
+      //   reject( err );
+      //   return console.log('ERROR querying flight', err);
+      // }
+      // reject( new Error('Auth Fail') );
+      // return;
 
       console.log('found flight', flight);
       // return flight;
@@ -109,37 +143,104 @@ const getFlight = (query) => {
 }; // getFlight()
 
 
-const getFlights = (query) => {
+const getFlights = (query, req) => {
 
   console.log('getFlights()', query);
 
+  if( req.user ){
+    console.log('AUTHENTICATED!');
+  } else {
+    console.log('NOT authenticated.');
+  }
+
   return new Promise( (resolve, reject) => {
-
     db.collection('flights').find(query).toArray( (err, flights) => {
-
       if( err ){
         reject( err );
         return console.log('Error querying flights', err);
       }
-
       resolve( flights );
-
     }); // .find.toArray()
-
   }); // new Promise
-
 }; // getFlights()
+
+
+const createReservation = (query, req) => {
+
+  if(!req.user) return new Error('Authentication error');
+
+  return new Promise( (resolve, reject) => {
+    console.log('createReservation()', query);
+    // return {
+    //   row: 1, col: 1, userID: '13434sd', flightID: '1231234124'
+    // };
+    db.collection('flights').findOneAndUpdate(
+      { _id: ObjectId(query.flightID) },
+      {
+        $push: {
+          reservations: {
+            row: query.row,
+            col: query.col,
+            // user: req.user._id
+          }
+        }
+      },
+      (err, result) => {
+        if( err ){
+          reject( err );
+          return console.log('Error updating flight (add reservation)', err);
+        }
+        console.log('updated', result);
+        resolve({
+          row: query.row,
+          col: query.col,
+          userID: req.user._id,
+          flightID: query.flightID
+        });
+      }
+    ); // updateOne
+  }); // new Promise
+}; // createReservation()  (mutation)
+
+// curl 'http://localhost:1337/graphql' \
+//  -H 'authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjY3M2I1MDczNjBiMDJmZGRlOWIyYTQiLCJlbWFpbCI6Im9uZUBvbmUuY29tIiwibmFtZSI6IlRlc3QgVXNlciAxIiwiaWF0IjoxNjAwNjgxMDMzLCJleHAiOjE2MDA5NDAyMzN9.Y6JbUhrT09aH1-bpiekyLNtrsT-yOGv-I_o-D5PWVFY' \
+//  -H 'content-type: application/json' \
+//  -d '{
+//    "query": "mutation Res($row: Int!, $col:Int!, $flightID: String!){   createReservation(row:$row, col:$col,flightID:$flightID){ row col flightID userID } }",
+//    "variables": {
+//      "row": 23,
+//      "col": 24,
+//      "flightID": "5f673b517360b02fdde9b2a7"
+//    }
+//  }'
+
 
 const rootResolver = {
   flight: getFlight, /// we need to define the function getFlight()
-  flights: getFlights
+  flights: getFlights,
+  createReservation: createReservation
 };
 
-app.use('/graphql', graphqlHTTP({
-  schema: schema,
-  rootValue: rootResolver,
-  graphiql: true
-}));
+app.use('/graphql',
+  // use this auth module to check the token, but NOT to block access;
+  // (we'll do that in each resolver specifically)
+  jwtAuthenticate({
+    secret: SERVER_SECRET_KEY,
+    algorithms:  ['HS256'],
+    credentialsRequired: false // do not block access, just provide req.user
+  }),
+  graphqlHTTP({
+    schema: schema,
+    rootValue: rootResolver,
+    graphiql: true
+  })
+);
+
+// app.use('/graphql', graphqlHTTP({
+//   schema: schema,
+//   rootValue: rootResolver,
+//   graphiql: true
+// }));
 
 // TODO: Use "Apollo" package in the frontend to do GraphQL
 // queries from inside your React or Vue frontend

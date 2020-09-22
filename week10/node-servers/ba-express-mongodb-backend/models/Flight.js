@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const flightSchema = new mongoose.Schema({
+const FlightSchema = new mongoose.Schema({
   flightNumber: String,
   origin: String,
   destination: String,
@@ -14,7 +14,6 @@ const flightSchema = new mongoose.Schema({
   reservations: [{
     row: Number,
     col: Number,
-    createdAt: { type: Date, default: Date.now },
     // Reservations belong to a User:
     // This syntax lets us set a User document's _id field here,
     // and Mongoose will fill the association for us when we .populate()
@@ -26,4 +25,4 @@ const flightSchema = new mongoose.Schema({
   }]
 });
 
-module.exports = mongoose.model('Flight', flightSchema);
+module.exports = mongoose.model('Flight', FlightSchema);

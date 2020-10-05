@@ -23,10 +23,11 @@ const jwt = require('jsonwebtoken');
 const jwtAuthenticate = require('express-jwt');
 // Use this function to lock down any route that should
 // be for logged-in users only
-const checkAuth = () => {
+const checkAuth = (locked=true) => {
   return jwtAuthenticate({
     secret: SERVER_SECRET_KEY,
-    algorithms:  ['HS256']
+    algorithms:  ['HS256'],
+    credentialsRequired: locked // actually prevents route handler from running; or run and provide req.user
   });
 };
 
@@ -135,7 +136,7 @@ const rootResolver = {
   flights: getFlights
 };
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', checkAuth(true), graphqlHTTP({
   schema: schema,
   rootValue: rootResolver,
   graphiql: true

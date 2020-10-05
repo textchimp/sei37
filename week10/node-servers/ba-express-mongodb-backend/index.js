@@ -224,15 +224,29 @@ const rootResolver = {
 app.use('/graphql',
   // use this auth module to check the token, but NOT to block access;
   // (we'll do that in each resolver specifically)
+
   jwtAuthenticate({
     secret: SERVER_SECRET_KEY,
     algorithms:  ['HS256'],
     credentialsRequired: false // do not block access, just provide req.user
   }),
+
   graphqlHTTP({
     schema: schema,
     rootValue: rootResolver,
-    graphiql: true
+    graphiql: true,
+
+    customFormatErrorFn(err) {
+      console.log('gql error', err);
+      return {
+        // grapQLErrors: err.message,
+        message: err.message,
+        code: err.originalError && err.originalError.code,
+        locations: err.locations,
+        path: err.path
+      };
+    }
+
   })
 );
 

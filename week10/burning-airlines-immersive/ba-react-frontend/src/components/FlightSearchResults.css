@@ -1,0 +1,24 @@
+.container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.header {
+  background-color: rgb(30, 28, 101);
+  color: white;
+  font-weight: bold;
+}
+
+.result {
+  cursor: pointer;
+  transition: 0.1s;
+  color: black;
+  text-decoration: none !important;
+}
+
+.result:hover{
+  background-color: #EEEEEE;
+  font-weight: bold;
+}

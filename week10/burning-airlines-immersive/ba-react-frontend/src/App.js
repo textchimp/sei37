@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 // import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router, Route, useHistory} from 'react-router-dom';
+
 import FlightSearch from './components/FlightSearch';
 import FlightSearchResults from './components/FlightSearchResults';
+import FlightDetails from './components/FlightDetails';
 
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 
@@ -51,6 +53,7 @@ function App() {
         <div>
           <Route path="/" component={ FlightSearch } />
           <Route exact path="/search/:origin/:destination" component={ FlightSearchResults } />
+          <Route exact path="/flights/:id" component={ FlightDetails } />
         </div>
       </Router>
     </div>

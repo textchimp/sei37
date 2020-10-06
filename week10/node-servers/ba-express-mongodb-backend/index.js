@@ -48,11 +48,61 @@ app.use( express.urlencoded({ extended: true }) );
 
 // GraphQL backend setup
 const { graphqlHTTP }  = require('express-graphql');
-const { buildSchema } = require('graphql');
 
-const schema = buildSchema(`
+const { buildSchema, GraphQLScalarType } = require('graphql');
+const { Kind } = require('graphql/language');
+// For custom Date scalar (see https://stackoverflow.com/a/49694083)
+
+const { makeExecutableSchema } = require('graphql-tools');
+
+// Simplest:
+// const { graphqlHTTP } = require('express-graphql');
+// const { buildSchema } = require('graphql');
+
+
+
+
+// const schema = buildSchema(`
+//   type Query {
+//     flight(id: String, flightNumber: String): Flight,
+//     flights(origin: String, destination: String): [Flight]
+//   },
+//
+//   type Mutation {
+//     createReservation(row: Int!, col: Int!, flightID: String!): Reservation
+//   },
+//
+//   type Flight {
+//     flightNumber: String,
+//     origin: String,
+//     destination: String,
+//     _id: String,
+//     departureDate: Date,
+//     reservations: [Reservation],
+//     airplane: Airplane
+//   },
+//
+//   type Reservation {
+//     row: Int,
+//     col: Int,
+//     flightID: String,
+//     userID: String,
+//   },
+//
+//   type Airplane {
+//     name: String,
+//     rows: Int,
+//     cols: Int
+//   },
+//
+//   scalar Date
+//
+// `);
+
+// for makeExecutableSchema below (more complicated version)
+const schemaStr = `
   type Query {
-    flight(id: String): Flight,
+    flight(id: String, flightNumber: String): Flight,
     flights(origin: String, destination: String): [Flight]
   },
 
@@ -65,7 +115,9 @@ const schema = buildSchema(`
     origin: String,
     destination: String,
     _id: String,
-    reservations: [Reservation]
+    departureDate: Date,
+    reservations: [Reservation],
+    airplane: Airplane
   },
 
   type Reservation {
@@ -73,8 +125,18 @@ const schema = buildSchema(`
     col: Int,
     flightID: String,
     userID: String,
-  }
-`);
+  },
+
+  type Airplane {
+    name: String,
+    rows: Int,
+    cols: Int
+  },
+
+  scalar Date
+
+`;
+
 
 // Mutation example query:
 //
@@ -116,14 +178,24 @@ const getFlight = (query, req) => {
   //    getFlight(query).then( data => res.json(data) );
   return new Promise( (resolve, reject) => {
 
-    db.collection('flightsdsds').findOne(ObjectId(query.id), (err, flight) => {
+    // Allow searching by either DB ID, or Flight Number
+    let searchParams;
+    if( query.id ){
+      searchParams = ObjectId(query.id);
+      console.log('search', searchParams);
+    } else if( query.flightNumber ){
+      searchParams = query;
+    } else {
+      reject( 'Either id or flightNumber must be specified' );
+      return console.log('ERROR querying flight: Either id or flightNumber must be specified');
+    }
 
-      // if( err ){
-      //   reject( err );
-      //   return console.log('ERROR querying flight', err);
-      // }
-      // reject( new Error('Auth Fail') );
-      // return;
+    db.collection('flights').findOne(searchParams, (err, flight) => {
+
+      if( err ){
+        reject( err );
+        return console.log('ERROR querying flight', err);
+      }
 
       console.log('found flight', flight);
       // return flight;
@@ -159,6 +231,7 @@ const getFlights = (query, req) => {
         reject( err );
         return console.log('Error querying flights', err);
       }
+      console.log('flights', flights );
       resolve( flights );
     }); // .find.toArray()
   }); // new Promise
@@ -215,10 +288,32 @@ const createReservation = (query, req) => {
 //  }'
 
 
+// see (see https://stackoverflow.com/a/49694083)
+const resolverMap = {
+  Date: new GraphQLScalarType({
+    name: 'Date',
+    description: 'Date custom scalar type',
+    parseValue(value) {
+      return new Date(value); // value from the client
+    },
+    serialize(value) {
+      return value.getTime(); // value sent to the client
+    },
+    parseLiteral(ast) {
+      if (ast.kind === Kind.INT) {
+        return new Date(ast.value) // ast value is always in string format
+      }
+      return null;
+    },
+  }),
+};
+const schemaExec = makeExecutableSchema({typeDefs: schemaStr, resolvers: resolverMap});
+
 const rootResolver = {
   flight: getFlight, /// we need to define the function getFlight()
   flights: getFlights,
-  createReservation: createReservation
+  createReservation: createReservation,
+  // Date: dateResolver
 };
 
 app.use('/graphql',
@@ -232,7 +327,7 @@ app.use('/graphql',
   }),
 
   graphqlHTTP({
-    schema: schema,
+    schema: schemaExec, // simpler to just use 'schema' as val, i.e. original definition, non-exec
     rootValue: rootResolver,
     graphiql: true,
 

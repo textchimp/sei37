@@ -1,0 +1,35 @@
+.seating {
+  margin-top: 30px;
+}
+
+.planeRow span {
+  padding: 10px;
+}
+
+.planeSeat {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  margin: 4px;
+  border: 1px solid #CCCCCC;
+  border-radius: 20% 20% 0 0;
+  cursor: pointer;
+}
+
+/* this is the class for seats which are reserved by the logged-in user */
+.booked {
+  background-color: orange;
+  pointer-events: none;
+}
+
+/* this class is for seats reserved by someone else */
+.occupied {
+  background-color: grey;
+  pointer-events: none; /* ignore clicks on occupied seats! can't reserve */
+}
+
+.selected {
+  background-color: rgb(100, 255, 37);
+  border: 1px solid green !important;
+}

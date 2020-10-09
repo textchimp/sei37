@@ -3,6 +3,8 @@ import React, {useState} from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, useHistory} from 'react-router-dom';
 
+import UserContext from './context/UserContext';
+
 import FlightSearch from './components/FlightSearch';
 import FlightSearchResults from './components/FlightSearchResults';
 import FlightDetails from './components/FlightDetails';
@@ -42,22 +44,40 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 });
 
+const testUser = {
+  email: 'one@two', id: 3
+}
 
 function App() {
+
+  const [user, setUser] = useState( testUser );
+
   return (
-   <ApolloProvider client={client}>
-   <div className="App">
-      <h1>BURNING AIRLINES</h1>
-      <hr/>
-      <Router>
-        <div>
-          <Route path="/" component={ FlightSearch } />
-          <Route exact path="/search/:origin/:destination" component={ FlightSearchResults } />
-          <Route exact path="/flights/:id" component={ FlightDetails } />
+    <UserContext.Provider value={{user, setUser}}>
+     <ApolloProvider client={client}>
+       <div className="App">
+          <h1>BURNING AIRLINES</h1>
+          <nav>
+            { user.email }
+            {
+            /*
+            Changing the 'user' state, due to its use in the UserContext above, will cause any child components using it to re-render
+            (i.e. ReservationConfirm, rendered by FlightDetails)
+            <button onClick={() => setUser({email: 'one@two', id: 3})}>user</button>
+            */
+            }
+          </nav>
+          <hr/>
+          <Router>
+            <div>
+              <Route path="/" component={ FlightSearch } />
+              <Route exact path="/search/:origin/:destination" component={ FlightSearchResults } />
+              <Route exact path="/flights/:id" component={ FlightDetails } />
+            </div>
+          </Router>
         </div>
-      </Router>
-    </div>
-    </ApolloProvider>
+      </ApolloProvider>
+    </UserContext.Provider>
   );
 }
 

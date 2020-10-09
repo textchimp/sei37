@@ -31,7 +31,19 @@ export const FLIGHT_DETAILS = gql`
       reservations {
         row
         col
+        user  # should be userID or .populated association?
       }
+    }
+  }
+`;
+
+export const RESERVATION_CREATE = gql`
+  mutation CreateReservation($row: Int!, $col:Int!, $flightID: String!){
+    createReservation(row:$row, col:$col,flightID:$flightID){
+      row
+      col
+      flightID
+      user
     }
   }
 `;

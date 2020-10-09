@@ -124,7 +124,7 @@ const schemaStr = `
     row: Int,
     col: Int,
     flightID: String,
-    userID: String,
+    user: String,
   },
 
   type Airplane {
@@ -240,7 +240,14 @@ const getFlights = (query, req) => {
 
 const createReservation = (query, req) => {
 
-  if(!req.user) return new Error('Authentication error');
+  // The GraphQL auth function we used when setting up the
+  // endpoint does NOT prevent access ('credentialsRequired: false'),
+  // it just checks the JWT and creates req.user if possible. I.e.
+  // it's up to each resolver function to check individually
+
+  // if(!req.user) return new Error('Authentication error');
+
+
 
   return new Promise( (resolve, reject) => {
     console.log('createReservation()', query);
@@ -254,7 +261,7 @@ const createReservation = (query, req) => {
           reservations: {
             row: query.row,
             col: query.col,
-            // user: req.user._id
+            user: '5f673b507360b02fdde9b2a4' // TODO: use real req.user._id
           }
         }
       },
@@ -267,7 +274,7 @@ const createReservation = (query, req) => {
         resolve({
           row: query.row,
           col: query.col,
-          userID: req.user._id,
+          userID: '5f673b507360b02fdde9b2a4',  // TODO: use real req.user._id
           flightID: query.flightID
         });
       }

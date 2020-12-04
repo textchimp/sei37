@@ -247,9 +247,13 @@ app.use('/graphql',
 
 
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`Listening at http://localhost:${PORT} ...`);
 });
+
+// Export the running server, so we can require() this file in our test suite
+// as well as running the server directly from the command line
+module.exports = server;
 
 // Routes
 

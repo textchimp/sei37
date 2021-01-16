@@ -1,8 +1,7 @@
 <template>
   <div>
     <h3>
-      Flight Search Results for
-      {{ origin }} to {{ destination }}
+      Flight Search Results for {{ origin }} to {{ destination }}
     </h3>
 
     <div class="container header">
@@ -64,23 +63,25 @@ export default {
   // 'componentDidMount' )
   created(){
 
-    console.log('FlightSearchResults mounted!');
+    // console.log('FlightSearchResults mounted!');
     const url = `${RAILS_FLIGHT_SEARCH_BASE_URL}/${ this.origin }/${ this.destination }`;
     // Rails API URL looks like: "/flights/search/SYD/MEL"
-
     axios.get(url)
     .then(  res => {
-      console.log('data', res.data);
+      // console.log('data', res.data);
       this.flights = res.data;  // save the results into state
     })
-    .catch( err => console.warn(err) );
+    .catch( err => {
+      console.warn('GET failed', err);
+   });
 
   }, // created()
 
   methods: {
 
     gotoFlightDetails( flightID ){
-      console.log('flight result clicked:', flightID);
+      // console.log('flight result clicked:', flightID);
+      
       // TODO: navigate to the FlightsShow component/route
       //   1. create that route in router/index.js
       //   2. use .push, pass the flightID in as a param

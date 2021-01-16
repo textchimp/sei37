@@ -5,8 +5,11 @@ import FlightSearch from '@/views/FlightSearch';
 import FlightSearchResults from '@/views/FlightSearchResults';
 import FlightDetails from '@/views/FlightDetails';
 
-
-Vue.use(Router)
+// Bug in vue-test-utils automatically loads router - need to disable for testing
+// so we can mock it!
+if (!process || process.env.NODE_ENV !== 'testing') {
+  Vue.use(Router)
+}
 
 export default new Router({
   routes: [

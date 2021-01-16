@@ -43,8 +43,11 @@ export default {
   methods: {
 
     submitSearch(){
-      console.log('Button pressed!', this);
+      // console.log('Button pressed!', this);
       // TODO: navigate to a new Vue route
+
+      // NOTE: can also call with route string:
+      //       this.$router.push('/search/SYD/MEL');
       this.$router.push({
         name: 'SearchResults',
         params: {

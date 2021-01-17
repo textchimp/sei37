@@ -1,6 +1,11 @@
 const BASE_URL = 'https://api.themoviedb.org/3'
 const API_KEY = '24d863d54c86392e6e1df55b9a328755';
 
+// 1. Look up credits for 'Alien' movie:
+//    https://api.themoviedb.org/3/movie/348/credits?api_key=24d863d54c86392e6e1df55b9a328755
+// 2. NESTED QUERY: Now make another request to the API, to get all the movies this cast member has appeared in
+//    https://api.themoviedb.org/3//person/${ PERSON_ID }/movie_credits?api_key=24d863d54c86392e6e1df55b9a328755
+// 👇
 // The problem: waiting for the results of one async operation, in order
 // to start the next one.... too much nesting, a.k.a. "callback hell pyramid"
 

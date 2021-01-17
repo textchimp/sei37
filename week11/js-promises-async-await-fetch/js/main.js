@@ -1,3 +1,97 @@
+const BASE_URL = 'https://api.themoviedb.org/3'
+const API_KEY = '24d863d54c86392e6e1df55b9a328755';
+
+// The problem: waiting for the results of one async operation, in order
+// to start the next one.... too much nesting, a.k.a. "callback hell pyramid"
+
+// 1. Look up credits for 'Alien' movie
+// const url = `https://api.themoviedb.org/3/movie/348/credits?api_key=${ API_KEY }`
+// axios.get(`${ BASE_URL }/movie/348/credits?api_key=${ API_KEY }`)
+// .then( movieCredits => {
+//   console.log(movieCredits.data);
+//
+//   // 2. Get other movie credits for first cast member
+//   const firstCastMember = movieCredits.data.cast[0];
+//   console.log(firstCastMember.name, firstCastMember.id);
+//
+//   // 3. NESTED QUERY: Now make another request to the API, to get
+//   // all the movies this cast member has appeared in:
+//   axios(`${ BASE_URL }/person/${ firstCastMember.id }/movie_credits?api_key=${ API_KEY }`)
+//   .then( actorCredits => {
+//     const movies = actorCredits.data.cast.map( m => m.title );
+//     console.log( movies.join('\n') );
+//   })
+//   .catch( console.warn )
+//
+// })
+// .catch( console.warn );
+
+
+//
+// Using promises correctly: CHAIN together, instead of NESTING
+if(false){
+
+axios.get(`${ BASE_URL }/movie/348/credits?api_key=${ API_KEY }`)
+
+// .catch( err => {
+//   console.log('error ine credits lookup');
+//   // THIS .catch() WILL CAUSE THE FOLLOWING .then() to run,
+//   // since catching a rejected promise automatically counts as resolving it!
+//
+//   // To skip the following then()s, throw a new error for the next catch!
+//   throw new Error('Credits request failed!');
+// })
+
+.then( movieCredits => {
+  console.log(movieCredits.data); // typos and other errors will be caught by .catch() too!
+
+  // 2. Get other movie credits for first cast member
+  const firstCastMember = movieCredits.data.cast[0];
+  console.log(firstCastMember.name, firstCastMember.id);
+
+  // 3. NESTED QUERY: Now make another request to the API, to get
+  // all the movies this cast member has appeared in:
+  // RETURN the promise axios returns, and we can chain the next .then()!
+
+  return axios.get(`${ BASE_URL }/person/${ firstCastMember.id }/movie_credits?api_key=${ API_KEY }`);
+  // return { data: { cast: [ {title:'a'}, {title:'b'} ] } };  // this works too!
+
+})
+
+// This .then() will handle whatever value is returned by the previous .then() callback
+// - doesn't have to be a promise, but if it is, we get the resolved value if it worked,
+// otherwise the next .catch() in the chain will catch it
+.then( actorCredits => {
+  // got here?
+  console.log('actor query')
+  const movies = actorCredits.data.cast.map( m => m.title );
+  console.log( movies.join('\n') );
+})
+.catch( err => {
+    console.warn('problem!', err);
+    console.dir(err);
+});
+}//false
+
+// Using async/await
+const getInfo = async () => {
+  try {
+    const movieCredits = await axios.get(`${ BASE_URL }/movie/348/credits?api_key=${ API_KEY }`);
+    const firstCastMember = movieCredits.data.cast[0];
+
+    const actorCredits = await axios.get(`${ BASE_URL }/person/${ firstCastMember.id }/movie_credits?api_key=${ API_KEY }`);
+    const movies = actorCredits.data.cast.map( m => m.title );
+    console.log( movies.join('\n') );
+  } catch( err ){
+    console.log('error!', err);
+  }
+
+}; // getInfo()
+
+getInfo();
+
+
+//////////////////////////////////////////////////////////////// original
 console.log('main.js loaded');
 
 // axios.get(url)  // 'then'-able.. "pending"
